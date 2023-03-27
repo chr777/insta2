@@ -36,7 +36,6 @@ function Post({id, username, avatar, postImg, caption}: IPost) {
         setHasLiked(likes.findIndex(like => like.id === session?.user?.uid) !== -1)
     , [likes]);
 
-
     const sendComment = async (e: any) => {
         e.preventDefault();
 
@@ -49,21 +48,18 @@ function Post({id, username, avatar, postImg, caption}: IPost) {
             userImage: session?.user?.image,
             timestamp: serverTimestamp()
         });
-
     }
 
     const likePost = async () => {
-        if(hasLiked){
-            await deleteDoc(doc(db, 'posts', id, 'likes', session?.user?.uid))  
-        }else {
-            await setDoc(doc(db, 'posts', id, 'likes', session?.user?.uid), {
-                username: session?.user?.username
-            })  
-        }
-
+        console.log(doc(db, 'posts', id, 'likes', session?.user?.uid))
+        // if(hasLiked){
+        //     await deleteDoc(doc(db, 'posts', id, 'likes', session?.user?.uid))  
+        // }else {
+        //     await setDoc(doc(db, 'posts', id, 'likes', session?.user?.uid), {
+        //         username: session?.user?.username
+        //     })  
+        // }
     }
-
-    console.log(id, comments[0]?.data());
     
     return (  
         <div className="bg-white my-7 border rounded-sm">
@@ -91,7 +87,7 @@ function Post({id, username, avatar, postImg, caption}: IPost) {
                 </div>)}
             {/* Caption */}
             <p className="p-5 truncate">
-                <span>{username} </span>
+                <span className="font-bold">{username}{' '}</span>
                 {caption}
             </p>
             {/* comments */}
